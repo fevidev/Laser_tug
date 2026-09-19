@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Analytics } from "@vercel/analytics/react";
 import HomeScreen from "./components/HomeScreen";
 import GameScreen from "./components/GameScreen";
 import { DEFAULT_SETTINGS, type Settings } from "./game/config";
@@ -101,6 +102,7 @@ export default function App() {
           }}
         />
       )}
+      <Analytics />
     </div>
   );
 }
