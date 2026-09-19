@@ -1,0 +1,325 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+  --ui-font: "Rajdhani", "Segoe UI", system-ui, sans-serif;
+  --display-font: "Orbitron", "Rajdhani", system-ui, sans-serif;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #04050d;
+  color: #e8f6ff;
+  font-family: var(--ui-font);
+  overflow: hidden;
+  overscroll-behavior: none;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* the arena swallows every gesture, the menu may still scroll */
+.arena-root {
+  touch-action: none;
+}
+.menu-scroll {
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+}
+
+.font-display {
+  font-family: var(--display-font);
+  letter-spacing: 0.06em;
+}
+
+/* ------------------------------------------------------------------ *
+ * Animated background field
+ * ------------------------------------------------------------------ */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgba(120, 160, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(120, 160, 255, 0.07) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+@keyframes gridDrift {
+  from {
+    background-position: 0 0, 0 0;
+  }
+  to {
+    background-position: 48px 0, 0 48px;
+  }
+}
+
+.bg-grid-anim {
+  animation: gridDrift 6s linear infinite;
+}
+
+@keyframes auroraA {
+  0%,
+  100% {
+    transform: translate3d(-8%, -6%, 0) scale(1.1);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translate3d(10%, 8%, 0) scale(1.35);
+    opacity: 0.85;
+  }
+}
+
+@keyframes auroraB {
+  0%,
+  100% {
+    transform: translate3d(10%, 8%, 0) scale(1.25);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate3d(-9%, -8%, 0) scale(1);
+    opacity: 0.8;
+  }
+}
+
+.aurora-a {
+  animation: auroraA 14s ease-in-out infinite;
+}
+.aurora-b {
+  animation: auroraB 18s ease-in-out infinite;
+}
+
+/* ------------------------------------------------------------------ *
+ * Neon text + buttons
+ * ------------------------------------------------------------------ */
+@keyframes titleFlicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  42% {
+    opacity: 1;
+  }
+  43% {
+    opacity: 0.62;
+  }
+  45% {
+    opacity: 1;
+  }
+  73% {
+    opacity: 1;
+  }
+  74% {
+    opacity: 0.78;
+  }
+  76% {
+    opacity: 1;
+  }
+}
+
+.title-flicker {
+  animation: titleFlicker 7s linear infinite;
+}
+
+@keyframes pulseGlow {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 0 rgba(57, 255, 150, 0.45),
+      0 0 28px rgba(57, 255, 150, 0.55),
+      inset 0 0 22px rgba(57, 255, 150, 0.35);
+    transform: translateZ(0) scale(1);
+  }
+  50% {
+    box-shadow:
+      0 0 0 18px rgba(57, 255, 150, 0),
+      0 0 54px rgba(57, 255, 150, 0.85),
+      inset 0 0 34px rgba(57, 255, 150, 0.55);
+    transform: translateZ(0) scale(1.022);
+  }
+}
+
+.btn-pulse {
+  animation: pulseGlow 2.1s ease-in-out infinite;
+}
+
+@keyframes scanSweep {
+  0% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(220%);
+  }
+}
+
+.scan-sweep {
+  animation: scanSweep 3.4s cubic-bezier(0.5, 0, 0.3, 1) infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 22s linear infinite;
+}
+
+@keyframes newDot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(1.5);
+  }
+}
+
+.new-dot {
+  animation: newDot 1.1s ease-in-out infinite;
+}
+
+/* ------------------------------------------------------------------ *
+ * Screen transitions
+ * ------------------------------------------------------------------ */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  animation: fadeUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-46px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-down {
+  animation: slideDown 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes screenFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.screen-in {
+  animation: screenFadeIn 0.45s ease both;
+}
+
+/* ------------------------------------------------------------------ *
+ * Countdown
+ * ------------------------------------------------------------------ */
+@keyframes countPop {
+  0% {
+    opacity: 0;
+    transform: scale(2.4);
+    filter: blur(14px);
+  }
+  22% {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+  74% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.82);
+    filter: blur(6px);
+  }
+}
+
+.count-pop {
+  animation: countPop 0.95s cubic-bezier(0.2, 0.9, 0.25, 1) both;
+}
+
+@keyframes engagePop {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) skewX(-14deg);
+  }
+  30% {
+    opacity: 1;
+    transform: scale(1.14) skewX(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.6);
+    filter: blur(12px);
+  }
+}
+
+.engage-pop {
+  animation: engagePop 0.9s cubic-bezier(0.2, 0.9, 0.25, 1) both;
+}
+
+/* ------------------------------------------------------------------ *
+ * Misc
+ * ------------------------------------------------------------------ */
+.scanlines::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.035) 0px,
+    rgba(255, 255, 255, 0.035) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  mix-blend-mode: overlay;
+}
+
+.clip-notch {
+  clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(120, 200, 255, 0.28);
+  border-radius: 99px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
